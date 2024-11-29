@@ -114,12 +114,32 @@ def retrieve_top_books(cursor, table_name, n=5):
 
 
 
+def data_preprocessing(file_path):
+    try:
+        # Load data
+        df = load_data(file_path)
+        # Remove duplicates
+        df = remove_duplicates(df)
+        # Handle missing values
+        df = handle_missing_values(df)
+        # Normalize numerical columns
+        df = normalize_data(df, ['price'])
+        # Encode categorical columns
+        # df = one_hot_encode(df, ['category'])
+        return df
+    except Exception as e:
+        raise Exception(f"Data preprocessing error: {str(e)}")
+
 
 # Main Execution
 file_path = r"C:\Users\david\BathUni\MA50290_24\programming-for-data-science-mock-exam\data\book_sales.csv"
 df = load_data(file_path)
 df = remove_duplicates(df)
 # df = handle_missing_values(df)
+
+transformed_data = data_preprocessing(file_path)
+# save the transformed data to a new file in the data folder
+transformed_data.to_csv(r"C:\Users\david\BathUni\MA50290_24\programming-for-data-science-mock-exam\data\book_sales_transformed.csv", index=False)
 
 column_names = ['asin', 'title', 'author', 'productURL', 'stars', 'price',
        'isKindleUnlimited', 'category_id', 'isBestSeller', 'isEditorsPick',
