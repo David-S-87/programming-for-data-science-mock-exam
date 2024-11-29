@@ -22,6 +22,8 @@ def load_data(file_path):
     
 def apply_pca(data, n_components=2):
     try:
+        # only apply PCA to numerical columns
+        data = data.select_dtypes(include=[np.number])
         pca = PCA(n_components=n_components)
         pca_data = pca.fit_transform(data)
         return pca_data
