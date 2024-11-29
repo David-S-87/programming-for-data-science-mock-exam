@@ -4,16 +4,11 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import pickle
 
-# Load data
-# TODO: Load dataset and split into training/testing sets
-
-# Train model
-# TODO: Train a decision tree classifier
-
-# Evaluate model
-# TODO: Evaluate model and print metrics (accuracy, precision, recall, F1 score)
-
-# Save model
-# TODO: Save trained model to a .pkl file
+# 1. Load a dataset and split it into training and testing sets (80/20 or 70/30 split).
+# 2. Train a Decision Tree classifier using the training data.
+# 3. Evaluate the trained model using accuracy, precision, recall, and F1 score on the test data.
+# 4. Save the trained model to a .pkl file for later use.
+# 5. Ensure proper exception handling for data loading, model training, and evaluation.
+# 6. Include meaningful error messages when the model cannot be trained or the evaluation fails (e.g., empty dataset, invalid data).
 
 

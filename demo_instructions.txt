@@ -1,0 +1,6 @@
+# 1. Provide clear, step-by-step instructions on how to set up the project (install dependencies, create a virtual environment).
+# 2. Include instructions on how to run the different Python files (e.g., running `python test_sp.py`).
+# 3. Document the structure of the project, explaining each file's purpose.
+# 4. Troubleshooting tips for common issues (e.g., missing libraries, database connection issues).
+# 5. Ensure the instructions are easy to follow for someone unfamiliar with the project.
+
