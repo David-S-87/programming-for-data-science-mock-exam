@@ -3,3 +3,4 @@
 # 3. Ensure meaningful error messages are printed for each exception.
 # 4. Document the functions and describe the potential errors that each might raise.
 # 5. Ensure that user input is validated (e.g., ensure integer input for number of clusters in clustering tasks).
+

@@ -5,6 +5,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
+from ml_test_package import load_data, split_data
 # 1. Define a simple feedforward neural network class using PyTorch (with at least one hidden layer).
 # 2. Load the dataset and split it into training and testing sets.
 # 3. Standardize the feature values before feeding them into the neural network.
@@ -25,34 +26,6 @@ class NeuralNetwork(nn.Module):
         out = self.fc2(out)
         return out
     
-def load_data(file_path):
-    try:
-        data = pd.read_csv(file_path)
-        return data
-    except Exception as e:
-        raise Exception(f"Error loading data: {str(e)}")
-    
-def split_data(data, target_column, test_size=0.2):
-    try:
-        X = data.drop(columns=[target_column])
-        y = data[target_column]
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=42)
-        X_train = X_train.select_dtypes(include=[int, float])
-        y_train = y_train.astype([int, float])
-        X_test = X_test.select_dtypes(include=[int, float])
-        y_test = y_test.astype([int, float])
-        return X_train, X_test, y_train, y_test
-    except Exception as e:
-        raise Exception(f"Error splitting data: {str(e)}")
-    
-def standardize_data(X_train, X_test):
-    try:
-        scaler = StandardScaler()
-        X_train = scaler.fit_transform(X_train)
-        X_test = scaler.transform(X_test)
-        return X_train, X_test
-    except Exception as e:
-        raise Exception(f"Error standardizing data: {str(e)}")
     
 def train_model(model, X_train, y_train, num_epochs=100, learning_rate=0.001):
     try:

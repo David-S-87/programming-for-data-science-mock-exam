@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
 
+from ml_test_package import load_data
+
 # 1. Load the dataset into a pandas DataFrame.
 # 2. Apply PCA (Principal Component Analysis) to reduce the data to 2 principal components.
 # 3. Visualize the dataset after PCA reduction in 2D using Matplotlib.
@@ -11,14 +13,7 @@ from sklearn.cluster import KMeans
 # 5. Visualize the clusters using different colors in a scatter plot.
 # 6. Add proper exception handling when loading the data, running PCA, and applying K-means clustering.
 # 7. Include user input/output validation (e.g., number of clusters, dataset loading).
-
-
-def load_data(file_path):
-    try:
-        data = pd.read_csv(file_path)
-        return data
-    except Exception as e:
-        raise Exception(f"Error loading data: {str(e)}")
+# 8. Ensure that the code is reusable, modular, and well-documented.
     
 def apply_pca(data, n_components=2):
     try:

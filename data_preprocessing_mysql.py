@@ -5,6 +5,12 @@ import pymysql
 from pymysql import MySQLError
 from getpass import getpass
 
+from ml_test_package import (load_data,
+                        data_preprocessing,
+                        remove_duplicates,
+                        one_hot_encode,
+                        create_connection)
+
 # 1. Load the dataset 'book_sales.csv' into a pandas DataFrame.
 # 2. Handle missing values (e.g., impute or remove rows/columns with missing data).
 # 3. Normalize numerical columns (e.g., 'sales') using standard scaling or normalization techniques.
@@ -17,62 +23,8 @@ from getpass import getpass
 # 10. Ensure meaningful error messages for failed steps (e.g., database errors, missing columns).
 
 
-def load_data(file_path):
-    try:
-        data = pd.read_csv(file_path)
-        return data
-    except Exception as e:
-        raise Exception(f"Error loading data: {str(e)}")
-    
-def handle_missing_values(data):
-    try:
-        cleaned_data = data.dropna()
-        return cleaned_data
-    except Exception as e:
-        raise Exception(f"Error handling missing values: {str(e)}")
-    
-def remove_duplicates(data):
-    try:
-        cleaned_data = data.drop_duplicates()
-        return cleaned_data
-    except Exception as e:
-        raise Exception(f"Error removing duplicates: {str(e)}")
-    
-def normalize_data(data, columns):
-    try:
-        for col in columns:
-            if col in data.columns:  # Check if column exists
-                data[col] = (data[col] - data[col].mean()) / data[col].std()
-            else:
-                print(f"Column '{col}' not found in the data.")
-        return data
-    except Exception as e:
-        raise Exception(f"Error normalizing data: {str(e)}")
-
-def one_hot_encode(data, columns):
-    try:
-        encoded_data = pd.get_dummies(data, columns=columns)
-        return encoded_data
-    except Exception as e:
-        raise Exception(f"Error encoding data: {str(e)}")
-    
-
 
 # Database Functions
-
-def create_connection(database_name='book_sales_db'):
-    try:
-        connection = pymysql.connect(
-            host='localhost',
-            user=input("Enter username: "),
-            password=getpass("Enter password: "),
-            database=database_name
-        )
-        print("Connection to MySQL established successfully.")
-        return connection
-    except MySQLError as e:
-        print(f"Error: '{e}'")
-        return None
 
 def create_table(cursor, table_name):
     try:
@@ -113,38 +65,15 @@ def retrieve_top_books(cursor, table_name, n=5):
 
 
 
-
-def data_preprocessing(file_path):
-    try:
-        # Load data
-        df = load_data(file_path)
-        # Remove duplicates
-        df = remove_duplicates(df)
-        # Handle missing values
-        df = handle_missing_values(df)
-        # Normalize numerical columns
-        df = normalize_data(df, ['price'])
-        # Encode categorical columns
-        # df = one_hot_encode(df, ['category'])
-        return df
-    except Exception as e:
-        raise Exception(f"Data preprocessing error: {str(e)}")
+column_names = ['asin', 'title', 'author', 'productURL', 'stars', 'price',
+       'isKindleUnlimited', 'category_id', 'isBestSeller', 'isEditorsPick',
+       'isGoodReadsChoice', 'category_name']
 
 
 # Main Execution
 file_path = r"C:\Users\david\BathUni\MA50290_24\programming-for-data-science-mock-exam\data\book_sales.csv"
 df = load_data(file_path)
 df = remove_duplicates(df)
-# df = handle_missing_values(df)
-
-transformed_data = data_preprocessing(file_path)
-# save the transformed data to a new file in the data folder
-transformed_data.to_csv(r"C:\Users\david\BathUni\MA50290_24\programming-for-data-science-mock-exam\data\book_sales_transformed.csv", index=False)
-
-column_names = ['asin', 'title', 'author', 'productURL', 'stars', 'price',
-       'isKindleUnlimited', 'category_id', 'isBestSeller', 'isEditorsPick',
-       'isGoodReadsChoice', 'category_name']
-
 
 # Normalize relevant columns
 # not required right now
@@ -167,3 +96,8 @@ else:
 
 
 
+file_path = r"C:\Users\david\BathUni\MA50290_24\programming-for-data-science-mock-exam\data\book_sales.csv"
+
+transformed_data = data_preprocessing(file_path)
+# save the transformed data to a new file in the data folder
+transformed_data.to_csv(r"C:\Users\david\BathUni\MA50290_24\programming-for-data-science-mock-exam\data\book_sales_transformed.csv", index=False)

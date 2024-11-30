@@ -4,6 +4,8 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import pickle
 
+from ml_test_package import (load_data, split_data)
+
 # 1. Load a dataset and split it into training and testing sets (80/20 or 70/30 split).
 # 2. Train a Decision Tree classifier using the training data.
 # 3. Evaluate the trained model using accuracy, precision, recall, and F1 score on the test data.
@@ -11,26 +13,7 @@ import pickle
 # 5. Ensure proper exception handling for data loading, model training, and evaluation.
 # 6. Include meaningful error messages when the model cannot be trained or the evaluation fails (e.g., empty dataset, invalid data).
 
-def load_data(file_path):
-    try:
-        data = pd.read_csv(file_path)
-        return data
-    except Exception as e:
-        raise Exception(f"Error loading data: {str(e)}")
-    
-def split_data(data, target_column, test_size=0.2):
-    try:
-        X = data.drop(columns=[target_column])
-        y = data[target_column]
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=42)
-        X_train = X_train.select_dtypes(include=[int, float])
-        y_train = y_train.astype([int, float])
-        X_test = X_test.select_dtypes(include=[int, float])
-        y_test = y_test.astype([int, float])
-        return X_train, X_test, y_train, y_test
-    except Exception as e:
-        raise Exception(f"Error splitting data: {str(e)}")
-    
+   
 def train_model(X_train, y_train):
     try:
         model = DecisionTreeClassifier()
